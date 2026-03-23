@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="assets/css/jquery-jvectormap-2.0.3.css">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="assets/css/scrollbar.css">
+	<link rel="stylesheet" href="assets/css/profilePopup.css">
 	
 	
 </head>
@@ -39,7 +40,7 @@
 	
 	<!-- start side bar -->
 	<div class="port_sidebar_wrapper mport_sidebar_wrapper">
-		<div class="port_sidebar_profile">
+		<div class="port_sidebar_profile" onclick="openPopup()">
 			<a href="javascript:;" class="port_sidebar_position active">
 				<div class="profile_circle ">
 					<img src="assets/images/DP_UmeshSingh.jpg" alt="umesh profile-image" class="img-fluid" />
@@ -587,27 +588,27 @@
 						</div>
 						<div class="col-lg-3 mb-3 col-md-6 col-sm-12 col-xs-12 text-center">
 							<div class="circle" id="circles-3"></div>
-							<h5>MySql / MsSql</h5>
+							<h5>MySql / MsSql / Oracle</h5>
 						</div>
 						<div class="col-lg-3 mb-3 col-md-6 col-sm-12 col-xs-12 text-center">
 							<div class="circle" id="circles-4"></div>
-							<h5>Ajax</h5>
+							<h5>Angular / React</h5>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
 							<div class="circle" id="circles-5"></div>
-							<h5>JavaScript</h5>
+							<h5>JQuery / JS / TS</h5>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
 							<div class="circle" id="circles-6"></div>
-							<h5>JQuery</h5>
+							<h5>IIS Hosting</h5>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
 							<div class="circle" id="circles-7"></div>
-							<h5>Bootstrap</h5>
+							<h5>Bootstrap / Tailwind</h5>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center">
 							<div class="circle" id="circles-8"></div>
-							<h5>Html5 / CSS3</h5>
+							<h5>Ef Core / Dapper / ADO.Net </h5>
 						</div>
 					</div>
 				</div>
@@ -662,33 +663,7 @@
 									<div class="col-lg-4 col-md-4 col-sm-4 col-12 padding-0">
 										<div class="ex_leftside">
 											<h1>2023</h1>
-											<h4>July to November</h4>
-											<h1>2023</h1>
-										</div>
-									</div>
-									<div class="col-lg-8 col-md-8 col-sm-8 col-12">
-										<div class="ex_rightside">
-											<h4>
-												Freelance Software
-												<span data-hover="Developer" class="data_hover c-pink">Engineer</span>
-											</h4>
-											<span class="c-pink">Freelance + Self-Development & Learning </span>
-											<p class="ex_details">
-												Designed and implemented an inventory management module with features for product tracking.
-											</p>											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-6 col-md-12">
-							<div class="exprince_box ex_leftsidebox">
-								<div class="row">
-									<div class="col-lg-4 col-md-4 col-sm-4 col-12 padding-0">
-										<div class="ex_leftside">
-											<h1>2023</h1>
-											<h4>Dec to June</h4>
+											<h4>July to June</h4>
 											<h1>2025</h1>
 										</div>
 									</div>
@@ -729,7 +704,7 @@
 										<div class="ex_leftside">
 											<h1>2025</h1>
 											<h4>June to Continue</h4>
-											<h1>2025</h1>
+											<h1>2026</h1>
 										</div>
 									</div>
 								</div>
@@ -1185,8 +1160,17 @@
 	<script type="text/javascript" src="assets/js/plugin/countto/jquery.appear.js"></script>
 	<script type="text/javascript" src="assets/js/circles.js"></script>
 	<script type="text/javascript" src="assets/js/custom1.js"></script>
+	<script type="text/javascript" src="assets/js/profilePopup.js"></script>
 	
+	<!-- Insta Popup -->
+    <div id="profilePopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <img src="assets/images/DP_UmeshSingh.jpg" class="popup-img"/>
+            <h3>Umesh Kumar Singh</h3>
+            <p>Software Engineer.</p>
+        </div>
+    </div>
 
 </body>
-
 </html>
