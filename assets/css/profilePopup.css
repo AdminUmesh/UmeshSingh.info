@@ -16,6 +16,8 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
   padding: 16px;
+  /* lightbox positions absolute relative to this */
+  isolation: isolate;
 }
 
 .profilePopup-overlay.active {
@@ -418,10 +420,13 @@
 /* ===== LIGHTBOX ===== */
 .profilePopup-lightbox {
   display: none;
+  position: absolute;
+  inset: 0;
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.88);
   z-index: 10001;
+  border-radius: 16px;
   animation: ppFadeIn 0.2s ease;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);

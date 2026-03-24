@@ -1163,6 +1163,7 @@
 	<script type="text/javascript" src="assets/js/profilePopup.js"></script>
 
 	<!-- Insta Popup -->
+<!-- Insta Popup -->
 <div id="profilePopup" class="popup">
   <div class="profilePopup-overlay" id="profilePopup-overlay" onclick="profilePopupOverlayClick(event)">
     <div class="profilePopup-modal" id="igModal">
@@ -1245,16 +1246,17 @@
 
       </div>
 
-      <!-- Lightbox — inside modal, clips to modal bounds -->
-      <div class="profilePopup-lightbox" id="igLightbox" style="display:none;">
-        <div class="profilePopup-lb-inner">
-          <button class="profilePopup-lb-close" onclick="closeLightbox()">✕</button>
-          <div id="lbMedia"></div>
-          <div class="profilePopup-lb-caption" id="lbCaption"></div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- Lightbox — direct child of overlay, absolute inset:0 fills the modal area -->
+    <div class="profilePopup-lightbox" id="igLightbox" style="display:none;">
+      <div class="profilePopup-lb-inner">
+        <button class="profilePopup-lb-close" onclick="closeLightbox()">✕</button>
+        <div id="lbMedia"></div>
+        <div class="profilePopup-lb-caption" id="lbCaption"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
