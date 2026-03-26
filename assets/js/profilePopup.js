@@ -38,22 +38,100 @@ document.addEventListener("keydown", function (e) {
 
 /* ===== DUMMY DATA ===== */
 const _ppPosts = [
-  { type: "img",   src: "assets/images/DP_UmeshSingh.jpg",    likes: "1.2K", caption: "Late night coding sessions 🌙 #dev" },
-  { type: "img",   src: "https://picsum.photos/seed/ui2/400/400",     likes: "843",  caption: "UI explorations ✨ #design" },
-  { type: "img",   src: "https://picsum.photos/seed/tech3/400/400",   likes: "2.1K", caption: "New desk setup 🖥️ #workspace" },
-  { type: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4", poster: "https://picsum.photos/seed/reel1/400/400", likes: "5.4K", caption: "Short reel 🎬 #coding" },
-  { type: "img",   src: "https://picsum.photos/seed/city5/400/400",   likes: "967",  caption: "City vibes 🏙️ #travel" },
-  { type: "img",   src: "https://picsum.photos/seed/coffee6/400/400", likes: "1.8K", caption: "Coffee + code = perfection ☕" },
-  { type: "img",   src: "https://picsum.photos/seed/nature7/400/400", likes: "3.3K", caption: "Disconnect to reconnect 🌿" },
-  { type: "video", src: "https://www.w3schools.com/html/movie.mp4",   poster: "https://picsum.photos/seed/reel2/400/400", likes: "7.1K", caption: "Tutorial drop! 🎥 #webdev" },
-  { type: "img",   src: "https://picsum.photos/seed/abstract8/400/400", likes: "2.7K", caption: "Generative art experiment 🎨" },
-  { type: "img",   src: "https://picsum.photos/seed/coffee6/400/400", likes: "1.8K", caption: "Coffee + code = perfection ☕" },
-  { type: "img",   src: "https://picsum.photos/seed/nature7/400/400", likes: "3.3K", caption: "Disconnect to reconnect 🌿" },
-  { type: "video", src: "https://www.w3schools.com/html/movie.mp4",   poster: "https://picsum.photos/seed/reel2/400/400", likes: "7.1K", caption: "Tutorial drop! 🎥 #webdev" },
-  { type: "img",   src: "https://picsum.photos/seed/coffee6/400/400", likes: "1.8K", caption: "Coffee + code = perfection ☕" },
-  { type: "img",   src: "https://picsum.photos/seed/nature7/400/400", likes: "3.3K", caption: "Disconnect to reconnect 🌿" },
-  { type: "video", src: "https://www.w3schools.com/html/movie.mp4",   poster: "https://picsum.photos/seed/reel2/400/400", likes: "7.1K", caption: "Tutorial drop! 🎥 #webdev" },
-  
+  {
+    type: "img",
+    src: "assets/images/DP_UmeshSingh.jpg",
+    likes: "1.2K",
+    caption: "Late night coding sessions 🌙 #dev",
+  },
+  {
+    type: "img",
+    src: "https://res.cloudinary.com/dozkhfxnn/image/upload/v1774516208/Umesh_Kr_Singh_efz2ag.jpg",
+    likes: "843",
+    caption: "UI explorations ✨ #design",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/tech3/400/400",
+    likes: "2.1K",
+    caption: "New desk setup 🖥️ #workspace",
+  },
+  {
+    type: "video",
+    src: "https://www.w3schools.com/html/mov_bbb.mp4",
+    poster: "https://picsum.photos/seed/reel1/400/400",
+    likes: "5.4K",
+    caption: "Short reel 🎬 #coding",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/city5/400/400",
+    likes: "967",
+    caption: "City vibes 🏙️ #travel",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/coffee6/400/400",
+    likes: "1.8K",
+    caption: "Coffee + code = perfection ☕",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/nature7/400/400",
+    likes: "3.3K",
+    caption: "Disconnect to reconnect 🌿",
+  },
+  {
+    type: "video",
+    src: "https://www.w3schools.com/html/movie.mp4",
+    poster: "https://picsum.photos/seed/reel2/400/400",
+    likes: "7.1K",
+    caption: "Tutorial drop! 🎥 #webdev",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/abstract8/400/400",
+    likes: "2.7K",
+    caption: "Generative art experiment 🎨",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/coffee6/400/400",
+    likes: "1.8K",
+    caption: "Coffee + code = perfection ☕",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/nature7/400/400",
+    likes: "3.3K",
+    caption: "Disconnect to reconnect 🌿",
+  },
+  {
+    type: "video",
+    src: "https://www.w3schools.com/html/movie.mp4",
+    poster: "https://picsum.photos/seed/reel2/400/400",
+    likes: "7.1K",
+    caption: "Tutorial drop! 🎥 #webdev",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/coffee6/400/400",
+    likes: "1.8K",
+    caption: "Coffee + code = perfection ☕",
+  },
+  {
+    type: "img",
+    src: "https://picsum.photos/seed/nature7/400/400",
+    likes: "3.3K",
+    caption: "Disconnect to reconnect 🌿",
+  },
+  {
+    type: "video",
+    src: "https://www.w3schools.com/html/movie.mp4",
+    poster: "https://picsum.photos/seed/reel2/400/400",
+    likes: "7.1K",
+    caption: "Tutorial drop! 🎥 #webdev",
+  },
 ];
 
 const _ppReels   = _ppPosts.filter(p => p.type === "video");
