@@ -42,9 +42,16 @@
 	<div class="port_sidebar_wrapper mport_sidebar_wrapper">
 		<div class="port_sidebar_profile" onclick="profilePopupOpen()">
 			<a href="javascript:;" class="port_sidebar_position active">
-				<div class="profile_circle ">
-					<img src="assets/images/DP_UmeshSingh.jpg" alt="umesh profile-image" class="img-fluid" />
-				</div>
+				<div class="profile_circle_wrapper">
+    
+                    <div class="profile_circle">
+                        <img src="assets/images/DP_UmeshSingh.jpg" alt="profile" />
+                    </div>
+
+                    <!-- Hand Indicator -->
+                    <div class="profile_click_indicator">👆</div>
+
+                </div>
 			</a>
 		</div>
 		<div class="port_sidebar_nav">
@@ -1199,13 +1206,15 @@
         <!-- Action Buttons -->
         <div class="profilePopup-btn-row">
           <button class="profilePopup-btn profilePopup-btn-follow" id="followBtn" onclick="toggleFollow()">Follow</button>
-          <button class="profilePopup-btn profilePopup-btn-msg" onclick="alert('📩 Message feature coming soon!')">Message</button>
+          <button class="profilePopup-btn profilePopup-btn-msg"
+             onclick="window.open('https://wa.me/919708306322?text=Hello%20Umesh','_blank')">
+             Message
+          </button>
         </div>
 
         <!-- Bio -->
         <div class="profilePopup-bio">
-          Full-stack developer 💻 &nbsp;UI/UX lover 🎨<br>
-          Building cool stuff, one commit at a time<br>
+          Gym | Fitness | Lifestyle <br>
           <span class="profilePopup-tag">#OpenSource</span> &nbsp;<span class="profilePopup-tag">#WebDev</span>
         </div>
 
@@ -1213,7 +1222,7 @@
         <div class="profilePopup-stories" id="storiesRow"></div>
 
         <!-- Stats -->
-        <div class="profilePopup-stats">
+        <!-- <div class="profilePopup-stats">
           <div class="profilePopup-stat">
             <div class="profilePopup-num">64</div>
             <div class="profilePopup-label">Posts</div>
@@ -1226,7 +1235,7 @@
             <div class="profilePopup-num">420</div>
             <div class="profilePopup-label">Following</div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Tabs -->
         <div class="profilePopup-tabs" id="igTabs">
@@ -1254,7 +1263,10 @@
     <!-- Lightbox — direct child of overlay -->
     <div class="profilePopup-lightbox" id="igLightbox" style="display:none;">
       <div class="profilePopup-lb-inner">
-        <button class="profilePopup-lb-close" onclick="closeLightbox()">✕</button>
+        <div class="profilePopup-lb-header">
+          <button class="profilePopup-lb-download" onclick="downloadCurrentMedia()">⬇️</button>
+          <button class="profilePopup-lb-close" onclick="closeLightbox()">✕</button>
+        </div>
         <div id="lbMedia"></div>
         <div class="profilePopup-lb-caption" id="lbCaption"></div>
       </div>

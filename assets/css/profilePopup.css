@@ -229,18 +229,18 @@
   flex-wrap: nowrap;
   gap: 12px;
   padding: 10px 0 14px;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  /* Must be constrained — width:100% alone doesn't work inside flex/padding context */
   box-sizing: border-box;
   max-width: 100%;
-  /* Force scrollable context */
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
+  /* Remove these conflicting lines: */
+  /* display: -webkit-box; */
+  /* display: -webkit-flex; */
+  /* display: flex; */
 }
+
 
 .profilePopup-stories::-webkit-scrollbar {
   display: none;
@@ -683,3 +683,53 @@
 
 .pp-sv-tap-left  { left: 0; }
 .pp-sv-tap-right { right: 0; }
+
+/* Lightbox header with download and close buttons */
+.profilePopup-lb-header {
+  position: absolute;
+  top: -38px;
+  right: 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.profilePopup-lb-download {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.profilePopup-lb-download:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.profilePopup-lb-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.profilePopup-lb-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
