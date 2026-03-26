@@ -16,7 +16,6 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
   padding: 16px;
-  /* lightbox positions absolute relative to this */
   isolation: isolate;
 }
 
@@ -48,7 +47,6 @@
   transform: scale(1);
 }
 
-/* Modal locked (no scroll) when lightbox open */
 .profilePopup-modal.lb-open {
   overflow: hidden;
 }
@@ -78,12 +76,15 @@
 }
 
 /* ===== COVER ===== */
-/* .profilePopup-cover {
-  height: 110px;
+.profilePopup-cover {
+  height: 75px;
   background: linear-gradient(135deg, #f058a0, #f7a04b, #fcdf5b);
   position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-shrink: 0;
-} */
+}
 
 /* ===== AVATAR ===== */
 .profilePopup-avatar-wrap {
@@ -98,6 +99,11 @@
   border-radius: 50%;
   background: linear-gradient(45deg, #f9a825, #f058a0, #a259f7);
   padding: 2.5px;
+  transition: transform 0.2s;
+}
+
+.profilePopup-avatar-ring:hover {
+  transform: scale(1.06);
 }
 
 .profilePopup-avatar {
@@ -217,13 +223,23 @@
   cursor: pointer;
 }
 
-/* ===== STORIES ===== */
+/* ===== STORIES / HIGHLIGHTS ===== */
 .profilePopup-stories {
   display: flex;
+  flex-wrap: nowrap;
   gap: 12px;
   padding: 10px 0 14px;
-  overflow-x: auto;
+  overflow-x: scroll;
+  overflow-y: visible;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* Must be constrained — width:100% alone doesn't work inside flex/padding context */
+  box-sizing: border-box;
+  max-width: 100%;
+  /* Force scrollable context */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
 }
 
 .profilePopup-stories::-webkit-scrollbar {
@@ -236,16 +252,27 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  min-width: 56px;
+  min-width: 60px;
+  flex-shrink: 0;
 }
 
 .profilePopup-story-ring {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(45deg, #f9a825, #f058a0, #a259f7);
   padding: 2px;
   flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.profilePopup-story-ring:hover {
+  transform: scale(1.08);
+}
+
+/* Greyed-out ring for "New Post" or empty stories */
+.profilePopup-story-ring.pp-no-story {
+  background: #444;
 }
 
 .profilePopup-story-img {
@@ -272,7 +299,7 @@
   font-size: 10px;
   color: #aaa;
   text-align: center;
-  max-width: 56px;
+  max-width: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -473,52 +500,186 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-
-
-
-
-
-
-.profilePopup-cover {
-  height: 75px;
-  background: linear-gradient(135deg, #f058a0, #f7a04b, #fcdf5b);
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.profilePopup-name {
-  font-size: 22px;
-  font-weight: 800;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-
-  /* Stylish effect */
-  text-shadow: 
-    2px 2px 6px rgba(0,0,0,0.3),
-    0 0 10px rgba(255,255,255,0.4);
-
-  /* Optional glass effect */
-  padding: 6px 14px;
-  border-radius: 10px;
-  backdrop-filter: blur(6px);
-}
-
+/* ===== COVER HANDLE TEXT ===== */
 #profilePopup-id {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 800;
   color: #fff;
   letter-spacing: 1px;
-
-  /* Stylish effect */
-  text-shadow: 
-    2px 2px 6px rgba(0,0,0,0.3),
-    0 0 10px rgba(255,255,255,0.4);
-
-  /* Optional glass effect */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.4);
   padding: 6px 14px;
   border-radius: 10px;
   backdrop-filter: blur(6px);
 }
+
+/* ===== STORY VIEWER ===== */
+.pp-sv-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.96);
+  border-radius: 16px;
+  animation: ppFadeIn 0.2s ease;
+}
+
+.pp-sv-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Progress bars */
+.pp-sv-bars {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+
+.pp-sv-bar-wrap {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.pp-sv-bar-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 2px;
+  width: 0%;
+  transition: none;
+}
+
+/* Header */
+.pp-sv-header {
+  position: absolute;
+  top: 22px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.pp-sv-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pp-sv-avatar-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f9a825, #f058a0, #a259f7);
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.pp-sv-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #222;
+  border: 2px solid #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.pp-sv-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.pp-sv-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.pp-sv-time {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.pp-sv-close {
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.pp-sv-close:hover {
+  background: rgba(0,0,0,0.65);
+}
+
+/* Media */
+.pp-sv-media-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Caption */
+.pp-sv-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 16px;
+  right: 16px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+  text-align: center;
+  z-index: 10;
+  background: rgba(0,0,0,0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+/* Tap zones (left / right) */
+.pp-sv-tap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.pp-sv-tap-left  { left: 0; }
+.pp-sv-tap-right { right: 0; }

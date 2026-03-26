@@ -1163,7 +1163,6 @@
 	<script type="text/javascript" src="assets/js/profilePopup.js"></script>
 
 	<!-- Insta Popup -->
-<!-- Insta Popup -->
 <div id="profilePopup" class="popup">
   <div class="profilePopup-overlay" id="profilePopup-overlay" onclick="profilePopupOverlayClick(event)">
     <div class="profilePopup-modal" id="igModal">
@@ -1173,11 +1172,12 @@
 
       <!-- Cover -->
       <div class="profilePopup-cover">
-		<div class="profilePopup-name-wrap">
+        <div class="profilePopup-name-wrap">
           <h2 id="profilePopup-id">@Umesh.Kr.Singh</h2>
         </div>
+        <!-- Avatar — clickable to open story -->
         <div class="profilePopup-avatar-wrap">
-          <div class="profilePopup-avatar-ring">
+          <div class="profilePopup-avatar-ring" onclick="openStoryViewer(1)" style="cursor:pointer;" title="View story">
             <div class="profilePopup-avatar">
               <img src="assets/images/DP_UmeshSingh.jpg" alt="avatar">
             </div>
@@ -1209,7 +1209,7 @@
           <span class="profilePopup-tag">#OpenSource</span> &nbsp;<span class="profilePopup-tag">#WebDev</span>
         </div>
 
-        <!-- Stories -->
+        <!-- Stories / Highlights -->
         <div class="profilePopup-stories" id="storiesRow"></div>
 
         <!-- Stats -->
@@ -1251,7 +1251,7 @@
 
     </div>
 
-    <!-- Lightbox — direct child of overlay, absolute inset:0 fills the modal area -->
+    <!-- Lightbox — direct child of overlay -->
     <div class="profilePopup-lightbox" id="igLightbox" style="display:none;">
       <div class="profilePopup-lb-inner">
         <button class="profilePopup-lb-close" onclick="closeLightbox()">✕</button>
@@ -1259,6 +1259,9 @@
         <div class="profilePopup-lb-caption" id="lbCaption"></div>
       </div>
     </div>
+
+    <!-- Story Viewer — direct child of overlay, fills it fully -->
+    <div class="pp-sv-overlay" id="ppStoryViewer" style="display:none;"></div>
 
   </div>
 </div>
