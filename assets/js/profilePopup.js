@@ -529,6 +529,7 @@ function setupScrollTrap() {
 }
 
 // Initialize drag-to-scroll for stories row with proper event handling
+// Initialize drag-to-scroll for stories row with proper event handling
 function initStoriesDragScroll() {
   const stories = document.getElementById("storiesRow");
   if (!stories) return;
@@ -536,9 +537,18 @@ function initStoriesDragScroll() {
   let _dragActive = false;
   let _dragStartX = 0;
   let _dragScrollLeft = 0;
+  let _dragMoved = false; // Track if actual drag movement occurred
   
   const startDrag = (e) => {
+    // Only start drag if not clicking on a story element
+    const target = e.target;
+    const isStoryElement = target.closest('.profilePopup-story');
+    
+    // Don't start drag if clicking on a story (let click handler work)
+    if (isStoryElement) return;
+    
     _dragActive = true;
+    _dragMoved = false;
     _dragStartX = (e.pageX || e.touches[0].pageX) - stories.offsetLeft;
     _dragScrollLeft = stories.scrollLeft;
     stories.style.cursor = "grabbing";
@@ -551,6 +561,11 @@ function initStoriesDragScroll() {
     _dragActive = false;
     stories.style.cursor = "grab";
     stories.style.userSelect = "";
+    
+    // If no movement occurred, let click events pass through
+    if (!_dragMoved) {
+      // Do nothing, let click handlers work
+    }
   };
   
   const doDrag = (e) => {
@@ -560,7 +575,14 @@ function initStoriesDragScroll() {
     if (!pageX) return;
     const x = pageX - stories.offsetLeft;
     const walk = (x - _dragStartX) * 1.2;
-    stories.scrollLeft = _dragScrollLeft - walk;
+    const newScrollLeft = _dragScrollLeft - walk;
+    
+    // Check if actual movement happened
+    if (Math.abs(walk) > 2) {
+      _dragMoved = true;
+    }
+    
+    stories.scrollLeft = newScrollLeft;
   };
   
   // Mouse events
@@ -575,14 +597,14 @@ function initStoriesDragScroll() {
   
   stories.style.cursor = "grab";
   
-  // Add inertia scrolling effect for smoother experience
-  let _scrollTimeout = null;
-  stories.addEventListener("scroll", function() {
-    if (_scrollTimeout) clearTimeout(_scrollTimeout);
-    _scrollTimeout = setTimeout(() => {
-      // Just to ensure scroll events don't conflict
-    }, 50);
-  });
+  // Prevent click from firing if drag moved
+  stories.addEventListener('click', function(e) {
+    if (_dragMoved) {
+      e.stopPropagation();
+      // Reset drag moved flag
+      setTimeout(() => { _dragMoved = false; }, 100);
+    }
+  }, true);
 }
 
 
