@@ -733,3 +733,24 @@
 .profilePopup-lb-close:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* Better touch feedback for mobile */
+.profilePopup-story {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-x pan-y; /* Allow touch scrolling but preserve clicks */
+}
+
+.profilePopup-story-ring,
+.profilePopup-story-img {
+  pointer-events: auto; /* Ensure clicks register */
+}
+
+/* Make stories row more touch-friendly */
+.profilePopup-stories {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.profilePopup-story {
+  scroll-snap-align: start;
+}

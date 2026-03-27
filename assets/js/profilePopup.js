@@ -127,14 +127,18 @@ function buildStories() {
     el.className = "profilePopup-story";
 
     const hasSlides = s.slides && s.slides.length > 0;
-    const ringClass = hasSlides ? "profilePopup-story-ring" : "profilePopup-story-ring pp-no-story";
+    const ringClass = hasSlides
+      ? "profilePopup-story-ring"
+      : "profilePopup-story-ring pp-no-story";
 
     el.innerHTML = `
       <div class="${ringClass}">
         <div class="profilePopup-story-img">
-          ${s.img
-            ? `<img src="${s.img}" alt="${s.name}" draggable="false">`
-            : `<span style="font-size:20px">${s.emoji || "?"}</span>`}
+          ${
+            s.img
+              ? `<img src="${s.img}" alt="${s.name}" draggable="false">`
+              : `<span style="font-size:20px">${s.emoji || "?"}</span>`
+          }
         </div>
       </div>
       <div class="profilePopup-story-name">${s.name}</div>
@@ -142,11 +146,14 @@ function buildStories() {
 
     el.onclick = (e) => {
       e.stopPropagation();
-      if (s.name === "New Post" || !hasSlides) {
-        alert("📸 New post feature coming soon!");
-      } else {
-        openStoryViewer(i);
-      }
+      // Small delay to ensure drag didn't happen
+      setTimeout(() => {
+        if (s.name === "New Post" || !hasSlides) {
+          alert("📸 New post feature coming soon!");
+        } else {
+          openStoryViewer(i);
+        }
+      }, 10);
     };
 
     row.appendChild(el);
