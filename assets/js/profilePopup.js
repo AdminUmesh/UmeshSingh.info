@@ -390,7 +390,7 @@ function switchTab(i) {
 
 
 /* ===== GRID + LAZY LOAD ===== */
-const _ppBATCH = 6;
+const _ppBATCH = 12;
 let   _ppLoaded = 0;
 let   _ppBusy   = false;
 
