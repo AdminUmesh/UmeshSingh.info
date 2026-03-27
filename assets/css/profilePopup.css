@@ -224,26 +224,80 @@
 }
 
 /* ===== STORIES / HIGHLIGHTS ===== */
+/* ===== STORIES / HIGHLIGHTS ===== */
 .profilePopup-stories {
   display: flex;
   flex-wrap: nowrap;
   gap: 12px;
-  padding: 10px 0 14px;
+  padding: 10px 0 5px;
   overflow-x: auto;
   overflow-y: visible;
-  scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   max-width: 100%;
-  /* Remove these conflicting lines: */
-  /* display: -webkit-box; */
-  /* display: -webkit-flex; */
-  /* display: flex; */
+  cursor: grab;
+  scroll-behavior: smooth;
+  
+  /* Completely hide scrollbar on all devices */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
+.profilePopup-stories:active {
+  cursor: grabbing;
+}
 
+/* Hide scrollbar for Chrome, Safari, Opera */
 .profilePopup-stories::-webkit-scrollbar {
   display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+/* For desktop - keep scrollbar hidden even on hover */
+@media (min-width: 768px) {
+  .profilePopup-stories {
+    scrollbar-width: none;
+  }
+  
+  .profilePopup-stories:hover {
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a4a #1a1a1a; /* thumb color track color */
+  }
+  
+  .profilePopup-stories:hover::-webkit-scrollbar {
+    display: block;
+    height: 2px; /* Ultra thin */
+  }
+  
+  .profilePopup-stories::-webkit-scrollbar {
+    display: none;
+  }
+  .profilePopup-stories::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 2px;
+    transition: background 0.2s ease;
+  }
+  
+  .profilePopup-stories:hover::-webkit-scrollbar-track {
+    background: rgba(26, 26, 26, 0.6); /* Dark semi-transparent track */
+  }
+  
+  .profilePopup-stories:hover::-webkit-scrollbar-thumb {
+    background: #4a4a4a; /* Medium gray thumb */
+  }
+  
+  .profilePopup-stories:hover::-webkit-scrollbar-thumb:hover {
+    background: #6a6a6a; /* Lighter on hover */
+  }
+}
+
+/* Ensure on desktop without hover, scrollbar remains hidden */
+@media (min-width: 768px) {
+  .profilePopup-stories::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .profilePopup-story {
@@ -745,12 +799,76 @@
   pointer-events: auto; /* Ensure clicks register */
 }
 
-/* Make stories row more touch-friendly */
-.profilePopup-stories {
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
 .profilePopup-story {
   scroll-snap-align: start;
+}
+
+.profilePopup-stories:active {
+  cursor: grabbing;
+}
+
+/* Custom scrollbar for desktop (optional) */
+.profilePopup-stories::-webkit-scrollbar {
+  height: 4px;
+  display: block;
+}
+
+.profilePopup-stories::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 4px;
+}
+
+.profilePopup-stories::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
+
+.profilePopup-stories::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* Add invisible padding areas between stories for better drag area */
+.profilePopup-story {
+  margin: 0 2px;
+}
+
+
+@media (min-width: 768px) {
+  .profilePopup-stories::-webkit-scrollbar-thumb {
+    transition: background 0.3s ease;
+  }
+  
+  .profilePopup-stories:hover::-webkit-scrollbar-thumb {
+    background: #666;
+  }
+}
+
+/* Optional: Add fade effect to indicate scrollable content */
+.profilePopup-stories {
+  position: relative;
+}
+
+.profilePopup-stories::after {
+  content: '';
+  position: sticky;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,0.3));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Left side fade */
+.profilePopup-stories::before {
+  content: '';
+  position: sticky;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to left, transparent, rgba(0,0,0,0.3));
+  pointer-events: none;
+  z-index: 1;
 }

@@ -7,6 +7,7 @@ function profilePopupOpen() {
     renderGrid(getCurrentData());
     setupScrollLoad();
     setupScrollTrap();
+    initDesktopScrollbar(); // Add this line
     window._ppInitialized = true;
   }
 }
@@ -529,7 +530,6 @@ function setupScrollTrap() {
 }
 
 // Initialize drag-to-scroll for stories row with proper event handling
-// Initialize drag-to-scroll for stories row with proper event handling
 function initStoriesDragScroll() {
   const stories = document.getElementById("storiesRow");
   if (!stories) return;
@@ -537,18 +537,25 @@ function initStoriesDragScroll() {
   let _dragActive = false;
   let _dragStartX = 0;
   let _dragScrollLeft = 0;
-  let _dragMoved = false; // Track if actual drag movement occurred
+  let _dragMoved = false;
+  let _dragStartTarget = null;
   
   const startDrag = (e) => {
-    // Only start drag if not clicking on a story element
+    // Check if clicking on a story circle or its children
     const target = e.target;
     const isStoryElement = target.closest('.profilePopup-story');
+    const isStoryRing = target.closest('.profilePopup-story-ring');
+    const isStoryImg = target.closest('.profilePopup-story-img');
+    const isStoryName = target.closest('.profilePopup-story-name');
     
-    // Don't start drag if clicking on a story (let click handler work)
-    if (isStoryElement) return;
+    // If clicking on any story element (circle, image, name), don't start drag
+    if (isStoryElement || isStoryRing || isStoryImg || isStoryName) {
+      return;
+    }
     
     _dragActive = true;
     _dragMoved = false;
+    _dragStartTarget = target;
     _dragStartX = (e.pageX || e.touches[0].pageX) - stories.offsetLeft;
     _dragScrollLeft = stories.scrollLeft;
     stories.style.cursor = "grabbing";
@@ -561,11 +568,7 @@ function initStoriesDragScroll() {
     _dragActive = false;
     stories.style.cursor = "grab";
     stories.style.userSelect = "";
-    
-    // If no movement occurred, let click events pass through
-    if (!_dragMoved) {
-      // Do nothing, let click handlers work
-    }
+    _dragStartTarget = null;
   };
   
   const doDrag = (e) => {
@@ -723,4 +726,32 @@ function downloadStoryMedia() {
       console.error("Download failed:", error);
       alert("❌ Download failed. Please try again.");
     });
+}
+
+// Add this function after your existing functions
+function initDesktopScrollbar() {
+  const stories = document.getElementById("storiesRow");
+  if (!stories) return;
+  
+  // Only apply on desktop/laptop
+  if (window.innerWidth >= 768) {
+    let hoverTimeout;
+    
+    const handleMouseEnter = () => {
+      clearTimeout(hoverTimeout);
+      stories.style.scrollbarWidth = "thin";
+    };
+    
+    const handleMouseLeave = () => {
+      hoverTimeout = setTimeout(() => {
+        stories.style.scrollbarWidth = "none";
+      }, 300);
+    };
+    
+    stories.addEventListener("mouseenter", handleMouseEnter);
+    stories.addEventListener("mouseleave", handleMouseLeave);
+    
+    // Store event listeners for cleanup if needed
+    stories._scrollbarEvents = { handleMouseEnter, handleMouseLeave };
+  }
 }
