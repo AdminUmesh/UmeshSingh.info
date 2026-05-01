@@ -980,8 +980,14 @@ function initDesktopScrollbar() {
         { content: "..." }
         { choices: [ { message: { content: "..." } } ] }   // raw OpenAI/Groq shape
    ---------------------------------------------------------*/
+// const _ppChatConfig = {
+//   endpoint: "https://localhost:7134/api/chat",
+//   timeoutMs: 20000,
+//   maxHistory: 12,
+// };
+
 const _ppChatConfig = {
-  endpoint: "https://localhost:7134/api/chat",
+  endpoint: "http://www.aiboat.somee.com/api/chat",
   timeoutMs: 20000,
   maxHistory: 12,
 };
