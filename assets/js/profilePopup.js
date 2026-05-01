@@ -981,7 +981,7 @@ function initDesktopScrollbar() {
         { choices: [ { message: { content: "..." } } ] }   // raw OpenAI/Groq shape
    ---------------------------------------------------------*/
 const _ppChatConfig = {
-  endpoint: "http://localhost:4200/qroq/chat",
+  endpoint: "https://localhost:7134/api/chat",
   timeoutMs: 20000,
   maxHistory: 12,
 };
