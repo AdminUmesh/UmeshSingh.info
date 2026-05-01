@@ -1,24 +1,47 @@
-/* ===== POPUP WRAPPER ===== */
-.popup {
-  display: none;
+/* =========================================================
+   INSTAGRAM-STYLE PROFILE POPUP
+   --------------------------------------------------------- */
+
+:root {
+  --pp-bg:           #000;
+  --pp-bg-soft:      #121212;
+  --pp-border:       #262626;
+  --pp-border-soft:  rgba(255,255,255,0.08);
+  --pp-text:         #f5f5f5;
+  --pp-text-dim:     #a8a8a8;
+  --pp-text-mute:    #737373;
+  --pp-blue:         #0095f6;
+  --pp-blue-hover:   #1877f2;
+  --pp-grey-btn:     #262626;
+  --pp-grey-btn-h:   #363636;
+  --pp-link:         #e0f1ff;
+  --pp-link-tag:     #e0f1ff;
+  --pp-radius:       12px;
+  --pp-radius-sm:    8px;
+  --pp-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --pp-ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
+
+/* ===== POPUP ROOT ===== */
+.popup { display: none; }
 
 /* ===== OVERLAY ===== */
 .profilePopup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
   padding: 16px;
   isolation: isolate;
 }
-
 .profilePopup-overlay.active {
   opacity: 1;
   pointer-events: all;
@@ -26,30 +49,28 @@
 
 /* ===== MODAL ===== */
 .profilePopup-modal {
-  width: 400px;
+  width: 420px;
   max-width: 100%;
   max-height: 92vh;
   overflow-y: auto;
-  background: #000;
-  border-radius: 16px;
-  border: 0.5px solid #2a2a2a;
+  background: var(--pp-bg);
+  border-radius: var(--pp-radius);
+  border: 1px solid var(--pp-border-soft);
   position: relative;
-  transform: scale(0.88);
-  transition: transform 0.3s ease;
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(.2,.9,.3,1), opacity 0.25s ease;
   scrollbar-width: none;
+  font-family: var(--pp-font);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern", "ss01";
 }
-
-.profilePopup-modal::-webkit-scrollbar {
-  display: none;
-}
-
+.profilePopup-modal::-webkit-scrollbar { display: none; }
 .profilePopup-overlay.active .profilePopup-modal {
-  transform: scale(1);
+  transform: translateY(0) scale(1);
+  opacity: 1;
 }
-
-.profilePopup-modal.lb-open {
-  overflow: hidden;
-}
+.profilePopup-modal.lb-open { overflow: hidden; }
 
 /* ===== CLOSE BUTTON ===== */
 .profilePopup-close {
@@ -68,12 +89,11 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  transition: background 0.2s;
+  transition: background 0.18s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-
-.profilePopup-close:hover {
-  background: rgba(0, 0, 0, 0.65);
-}
+.profilePopup-close:hover { background: rgba(0, 0, 0, 0.65); }
+.profilePopup-close:active { transform: scale(0.92); }
 
 /* ===== COVER ===== */
 .profilePopup-cover {
@@ -86,41 +106,54 @@
   flex-shrink: 0;
 }
 
+.profilePopup-name-wrap {
+  padding: 10px 14px;
+}
+
+#profilePopup-id {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 0;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.4);
+  padding: 6px 14px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
 /* ===== AVATAR ===== */
 .profilePopup-avatar-wrap {
   position: absolute;
-  bottom: -36px;
+  bottom: -38px;
   left: 16px;
 }
-
 .profilePopup-avatar-ring {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #f9a825, #f058a0, #a259f7);
+  background: var(--pp-ig-gradient);
   padding: 2.5px;
-  transition: transform 0.2s;
+  cursor: pointer;
+  transition: transform 0.18s ease;
 }
-
-.profilePopup-avatar-ring:hover {
-  transform: scale(1.06);
-}
-
+.profilePopup-avatar-ring:hover { transform: scale(1.05); }
+.profilePopup-avatar-ring:active { transform: scale(0.97); }
 .profilePopup-avatar {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #000;
-  border: 3px solid #000;
+  background: var(--pp-bg);
+  border: 3px solid var(--pp-bg);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
   font-weight: 700;
-  color: #fff;
+  color: var(--pp-text);
 }
-
 .profilePopup-avatar img {
   width: 100%;
   height: 100%;
@@ -129,292 +162,220 @@
 }
 
 /* ===== BODY ===== */
-.profilePopup-body {
-  padding: 48px 16px 16px;
-}
+.profilePopup-body { padding: 50px 16px 16px; }
 
-/* ===== NAME ROW ===== */
+/* ===== NAME / VERIFIED / HANDLE ===== */
 .profilePopup-name-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.profilePopup-name {
-  font-weight: 700;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 2px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-.profilePopup-verified {
-  background: #3797f0;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-left: 4px;
-  vertical-align: middle;
-}
-
-.profilePopup-handle {
-  font-size: 13px;
-  color: #aaa;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-/* ===== BUTTONS ===== */
-.profilePopup-btn-row {
-  display: flex;
-  gap: 8px;
   margin-bottom: 12px;
 }
+.profilePopup-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--pp-text);
+  margin-bottom: 2px;
+}
+.profilePopup-verified {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.profilePopup-handle {
+  font-size: 13px;
+  color: var(--pp-text-dim);
+  letter-spacing: 0.1px;
+}
 
+/* ===== ACTION BUTTONS ===== */
+.profilePopup-btn-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
 .profilePopup-btn {
   flex: 1;
   padding: 8px 0;
-  border-radius: 8px;
+  border-radius: var(--pp-radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s, transform 0.1s;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: background 0.15s ease, transform 0.08s ease, opacity 0.15s ease;
+  font-family: var(--pp-font);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  -webkit-tap-highlight-color: transparent;
 }
-
-.profilePopup-btn:active {
-  transform: scale(0.97);
-}
-
+.profilePopup-btn:active { transform: scale(0.97); }
 .profilePopup-btn-follow {
-  background: #3797f0;
+  background: var(--pp-blue);
   color: #fff;
 }
-
-.profilePopup-btn-follow:hover {
-  background: #1877d2;
-}
-
+.profilePopup-btn-follow:hover { background: var(--pp-blue-hover); }
+.profilePopup-btn-follow svg { stroke: #fff; }
 .profilePopup-btn-msg {
-  background: #262626;
-  color: #fff;
-  border: 0.5px solid #3a3a3a;
+  background: var(--pp-grey-btn);
+  color: var(--pp-text);
 }
-
-.profilePopup-btn-msg:hover {
-  background: #333;
+.profilePopup-btn-msg:hover { background: var(--pp-grey-btn-h); }
+.profilePopup-btn-icon {
+  flex: 0 0 38px;
+  background: var(--pp-grey-btn);
+  color: var(--pp-text);
+  padding: 8px;
 }
+.profilePopup-btn-icon:hover { background: var(--pp-grey-btn-h); }
 
 /* ===== BIO ===== */
 .profilePopup-bio {
-  font-size: 13px;
-  color: #dfdfdf;
-  line-height: 1.6;
-  margin-bottom: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  color: var(--pp-text);
+  line-height: 1.5;
+  margin-bottom: 14px;
 }
-
+.profilePopup-bio-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--pp-text);
+  margin-bottom: 2px;
+}
 .profilePopup-tag {
-  color: #4da3ff;
+  color: var(--pp-link-tag);
   cursor: pointer;
+  font-weight: 500;
 }
+.profilePopup-tag:hover { text-decoration: underline; }
 
-/* ===== STORIES / HIGHLIGHTS ===== */
 /* ===== STORIES / HIGHLIGHTS ===== */
 .profilePopup-stories {
   display: flex;
   flex-wrap: nowrap;
-  gap: 12px;
-  padding: 10px 0 5px;
+  gap: 14px;
+  padding: 8px 0 6px;
   overflow-x: auto;
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
-  box-sizing: border-box;
-  max-width: 100%;
   cursor: grab;
   scroll-behavior: smooth;
-  
-  /* Completely hide scrollbar on all devices */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
-.profilePopup-stories:active {
-  cursor: grabbing;
-}
-
-/* Hide scrollbar for Chrome, Safari, Opera */
-.profilePopup-stories::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-  background: transparent;
-}
-
-/* For desktop - keep scrollbar hidden even on hover */
-@media (min-width: 768px) {
-  .profilePopup-stories {
-    scrollbar-width: none;
-  }
-  
-  .profilePopup-stories:hover {
-    scrollbar-width: thin;
-    scrollbar-color: #4a4a4a #1a1a1a; /* thumb color track color */
-  }
-  
-  .profilePopup-stories:hover::-webkit-scrollbar {
-    display: block;
-    height: 2px; /* Ultra thin */
-  }
-  
-  .profilePopup-stories::-webkit-scrollbar {
-    display: none;
-  }
-  .profilePopup-stories::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 2px;
-    transition: background 0.2s ease;
-  }
-  
-  .profilePopup-stories:hover::-webkit-scrollbar-track {
-    background: rgba(26, 26, 26, 0.6); /* Dark semi-transparent track */
-  }
-  
-  .profilePopup-stories:hover::-webkit-scrollbar-thumb {
-    background: #4a4a4a; /* Medium gray thumb */
-  }
-  
-  .profilePopup-stories:hover::-webkit-scrollbar-thumb:hover {
-    background: #6a6a6a; /* Lighter on hover */
-  }
-}
-
-/* Ensure on desktop without hover, scrollbar remains hidden */
-@media (min-width: 768px) {
-  .profilePopup-stories::-webkit-scrollbar {
-    display: none;
-  }
-}
+.profilePopup-stories::-webkit-scrollbar { display: none; height: 0; }
+.profilePopup-stories:active { cursor: grabbing; }
 
 .profilePopup-story {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
-  min-width: 60px;
+  min-width: 64px;
   flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  scroll-snap-align: start;
 }
 
 .profilePopup-story-ring {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #f9a825, #f058a0, #a259f7);
-  padding: 2px;
+  background: var(--pp-ig-gradient);
+  padding: 2.5px;
   flex-shrink: 0;
-  transition: transform 0.2s;
+  transition: transform 0.18s ease;
+  position: relative;
 }
+.profilePopup-story-ring:hover { transform: scale(1.06); }
+.profilePopup-story-ring:active { transform: scale(0.95); }
 
-.profilePopup-story-ring:hover {
-  transform: scale(1.08);
-}
+/* "Seen" state — gray ring after viewing */
+.profilePopup-story-ring.pp-seen { background: #353535; }
 
-/* Greyed-out ring for "New Post" or empty stories */
-.profilePopup-story-ring.pp-no-story {
-  background: #444;
+/* "New Post" / no-story state */
+.profilePopup-story-ring.pp-no-story { background: #363636; }
+.profilePopup-story-ring.pp-no-story .profilePopup-story-img { background: #1a1a1a; }
+
+/* "+" badge for New Post */
+.profilePopup-story-ring.pp-no-story::after {
+  content: "+";
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pp-blue);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  text-align: center;
+  border: 2.5px solid var(--pp-bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .profilePopup-story-img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #1a1a1a;
-  border: 2px solid #000;
+  background: var(--pp-bg-soft);
+  border: 2px solid var(--pp-bg);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
 }
-
 .profilePopup-story-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
-
 .profilePopup-story-name {
-  font-size: 10px;
-  color: #aaa;
+  font-size: 11px;
+  color: var(--pp-text);
   text-align: center;
-  max-width: 60px;
+  max-width: 64px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-/* ===== STATS ===== */
-.profilePopup-stats {
-  display: flex;
-  border-top: 0.5px solid #1e1e1e;
-  border-bottom: 0.5px solid #1e1e1e;
-  padding: 12px 0;
-  margin-bottom: 4px;
-}
-
-.profilePopup-stat {
-  flex: 1;
-  text-align: center;
-}
-
-.profilePopup-stat + .profilePopup-stat {
-  border-left: 0.5px solid #1e1e1e;
-}
-
-.profilePopup-num {
-  font-weight: 700;
-  font-size: 16px;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-.profilePopup-label {
-  font-size: 12px;
-  color: #888;
-  margin-top: 2px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.1px;
 }
 
 /* ===== TABS ===== */
 .profilePopup-tabs {
   display: flex;
-  border-bottom: 0.5px solid #1e1e1e;
-  margin: 0 -16px;
+  border-top: 1px solid var(--pp-border-soft);
+  border-bottom: 1px solid var(--pp-border-soft);
+  margin: 12px -16px 0;
 }
-
 .profilePopup-tab {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   text-align: center;
   cursor: pointer;
-  color: #666;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+  color: var(--pp-text-mute);
+  border-top: 1px solid transparent;
+  margin-top: -1px;
+  transition: color 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-tap-highlight-color: transparent;
 }
-
+.profilePopup-tab:active { transform: scale(0.94); }
 .profilePopup-tab.active {
-  color: #fff;
-  border-bottom: 2px solid #fff;
+  color: var(--pp-text);
+  border-top: 1px solid var(--pp-text);
 }
 
 /* ===== GRID ===== */
@@ -424,79 +385,91 @@
   gap: 2px;
   margin: 2px -16px 0;
 }
-
 .profilePopup-post {
   aspect-ratio: 1;
-  background: #111;
+  background: var(--pp-bg-soft);
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
-
 .profilePopup-post img,
 .profilePopup-post video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.25s;
+  transition: transform 0.3s ease;
   display: block;
 }
 
-.profilePopup-post:hover img,
-.profilePopup-post:hover video {
-  transform: scale(1.06);
+/* Hover dark overlay with stats (real IG behaviour) */
+.profilePopup-post::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  z-index: 1;
+  pointer-events: none;
 }
+.profilePopup-post:hover::before { opacity: 1; }
+.profilePopup-post:hover img,
+.profilePopup-post:hover video { transform: scale(1.04); }
 
+/* Reel badge top-right */
 .profilePopup-post .pp-reel-badge {
   position: absolute;
   top: 6px;
   right: 6px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  padding: 3px;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
 }
+.profilePopup-post .pp-reel-badge svg { display: block; }
 
+/* Hover stats — likes + comments side by side, like real IG */
 .profilePopup-post .pp-likes {
   position: absolute;
-  bottom: 5px;
-  left: 5px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
   color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 2px 5px;
-  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
   opacity: 0;
-  transition: opacity 0.2s;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: opacity 0.18s ease;
+  z-index: 2;
+  pointer-events: none;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
-
-.profilePopup-post:hover .pp-likes {
-  opacity: 1;
+.profilePopup-post:hover .pp-likes { opacity: 1; }
+.profilePopup-post .pp-likes svg {
+  vertical-align: -2px;
+  margin-right: 4px;
+  fill: #fff;
 }
 
 /* ===== LOADER ===== */
 .profilePopup-loader {
   display: flex;
   justify-content: center;
-  padding: 16px;
+  padding: 18px;
 }
-
 .profilePopup-spinner {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #333;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #2a2a2a;
   border-top-color: #fff;
   border-radius: 50%;
   animation: ppSpin 0.7s linear infinite;
 }
-
-@keyframes ppSpin {
-  to { transform: rotate(360deg); }
-}
+@keyframes ppSpin { to { transform: rotate(360deg); } }
 
 /* ===== LIGHTBOX ===== */
 .profilePopup-lightbox {
@@ -505,66 +478,69 @@
   inset: 0;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(0, 0, 0, 0.92);
   z-index: 10001;
-  border-radius: 16px;
-  animation: ppFadeIn 0.2s ease;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  border-radius: var(--pp-radius);
+  animation: ppFadeIn 0.22s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-
 @keyframes ppFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 .profilePopup-lb-inner {
-  width: 90%;
+  width: 92%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 }
-
 .profilePopup-lb-inner img,
 .profilePopup-lb-inner video {
   max-width: 100%;
-  max-height: 320px;
+  max-height: 60vh;
   object-fit: contain;
-  border-radius: 10px;
+  border-radius: var(--pp-radius-sm);
   display: block;
+  background: #000;
 }
-
-.profilePopup-lb-close {
-  position: absolute;
-  top: -38px;
-  right: 0;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-}
-
 .profilePopup-lb-caption {
-  margin-top: 12px;
-  color: #ccc;
-  font-size: 12px;
+  margin-top: 14px;
+  color: var(--pp-text);
+  font-size: 13px;
+  line-height: 1.45;
   text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  max-width: 100%;
 }
-
-/* ===== COVER HANDLE TEXT ===== */
-#profilePopup-id {
-  font-size: 18px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.4);
-  padding: 6px 14px;
-  border-radius: 10px;
-  backdrop-filter: blur(6px);
+.profilePopup-lb-header {
+  position: absolute;
+  top: -42px;
+  right: 0;
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
+.profilePopup-lb-download,
+.profilePopup-lb-close {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: var(--pp-text);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.profilePopup-lb-download:hover,
+.profilePopup-lb-close:hover { background: rgba(255,255,255,0.18); }
+.profilePopup-lb-download:active,
+.profilePopup-lb-close:active { transform: scale(0.93); }
 
 /* ===== STORY VIEWER ===== */
 .pp-sv-overlay {
@@ -574,20 +550,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.96);
-  border-radius: 16px;
-  animation: ppFadeIn 0.2s ease;
+  background: #000;
+  border-radius: var(--pp-radius);
+  animation: ppFadeIn 0.22s ease;
 }
-
 .pp-sv-inner {
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: 16px;
+  border-radius: var(--pp-radius);
   overflow: hidden;
   background: #111;
   display: flex;
   flex-direction: column;
+}
+
+/* Top gradient overlay so progress bars + header stay readable on bright media */
+.pp-sv-inner::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 92px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  z-index: 5;
+  pointer-events: none;
 }
 
 /* Progress bars */
@@ -598,17 +584,15 @@
   right: 10px;
   display: flex;
   gap: 4px;
-  z-index: 10;
+  z-index: 11;
 }
-
 .pp-sv-bar-wrap {
   flex: 1;
-  height: 3px;
+  height: 2.5px;
   background: rgba(255, 255, 255, 0.35);
   border-radius: 2px;
   overflow: hidden;
 }
-
 .pp-sv-bar-fill {
   height: 100%;
   background: #fff;
@@ -620,30 +604,27 @@
 /* Header */
 .pp-sv-header {
   position: absolute;
-  top: 22px;
+  top: 24px;
   left: 12px;
   right: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 10;
+  z-index: 11;
 }
-
 .pp-sv-user {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
-
 .pp-sv-avatar-ring {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(45deg, #f9a825, #f058a0, #a259f7);
+  background: var(--pp-ig-gradient);
   padding: 2px;
   flex-shrink: 0;
 }
-
 .pp-sv-avatar {
   width: 100%;
   height: 100%;
@@ -656,53 +637,49 @@
   justify-content: center;
   font-size: 14px;
 }
-
 .pp-sv-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
-
 .pp-sv-name {
   font-size: 13px;
   font-weight: 600;
   color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
-
 .pp-sv-time {
-  font-size: 11px;
+  font-size: 12px;
   color: rgba(255,255,255,0.7);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin-left: 4px;
 }
-
+.pp-sv-actions { display: flex; gap: 8px; }
+.pp-sv-iconbtn,
 .pp-sv-close {
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.35);
   border: none;
   color: #fff;
-  font-size: 16px;
-  width: 30px;
-  height: 30px;
+  font-size: 15px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
-  flex-shrink: 0;
+  transition: background 0.18s ease, transform 0.1s ease;
 }
-
-.pp-sv-close:hover {
-  background: rgba(0,0,0,0.65);
-}
+.pp-sv-iconbtn:hover,
+.pp-sv-close:hover { background: rgba(0,0,0,0.6); }
+.pp-sv-iconbtn:active,
+.pp-sv-close:active { transform: scale(0.92); }
 
 /* Media */
 .pp-sv-media-wrap {
   position: absolute;
   inset: 0;
-  border-radius: 16px;
+  border-radius: var(--pp-radius);
   overflow: hidden;
 }
 
@@ -715,160 +692,295 @@
   color: #fff;
   font-size: 13px;
   font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   text-shadow: 0 1px 6px rgba(0,0,0,0.7);
   text-align: center;
-  z-index: 10;
-  background: rgba(0,0,0,0.3);
-  padding: 6px 12px;
-  border-radius: 20px;
-  backdrop-filter: blur(4px);
+  z-index: 11;
+  background: rgba(0,0,0,0.32);
+  padding: 8px 14px;
+  border-radius: 22px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-/* Tap zones (left / right) */
+/* Tap zones */
 .pp-sv-tap {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 40%;
+  width: 38%;
   z-index: 9;
   cursor: pointer;
 }
-
 .pp-sv-tap-left  { left: 0; }
 .pp-sv-tap-right { right: 0; }
 
-/* Lightbox header with download and close buttons */
-.profilePopup-lb-header {
+/* ===== MOBILE — full-screen modal (real IG app feel) ===== */
+@media (max-width: 640px) {
+  .profilePopup-overlay {
+    padding: 0;
+    background: #000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .profilePopup-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    transform: translateY(40px);
+  }
+  .profilePopup-overlay.active .profilePopup-modal { transform: translateY(0); }
+  .profilePopup-modal,
+  .profilePopup-lightbox,
+  .pp-sv-overlay,
+  .pp-sv-inner,
+  .pp-sv-media-wrap { border-radius: 0; }
+  .profilePopup-grid { gap: 1.5px; }
+}
+
+/* ===== CHAT (DM-style) ===== */
+.profilePopup-chat {
   position: absolute;
-  top: -38px;
-  right: 0;
+  inset: 0;
+  z-index: 10003;
   display: flex;
-  gap: 10px;
-  align-items: center;
+  flex-direction: column;
+  background: var(--pp-bg);
+  border-radius: var(--pp-radius);
+  overflow: hidden;
+  animation: ppFadeIn 0.22s ease;
 }
 
-.profilePopup-lb-download {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
-  transition: background 0.2s;
+.profilePopup-chat-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--pp-border-soft);
+  flex-shrink: 0;
+  background: var(--pp-bg);
 }
 
-.profilePopup-lb-download:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
-}
-
-.profilePopup-lb-close {
-  background: none;
+.profilePopup-iconbtn {
+  background: transparent;
   border: none;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 5px;
+  color: var(--pp-text);
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-}
-
-.profilePopup-lb-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Better touch feedback for mobile */
-.profilePopup-story {
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
   -webkit-tap-highlight-color: transparent;
-  touch-action: pan-x pan-y; /* Allow touch scrolling but preserve clicks */
+  flex-shrink: 0;
+}
+.profilePopup-iconbtn:hover { background: rgba(255,255,255,0.08); }
+.profilePopup-iconbtn:active { transform: scale(0.92); }
+
+.profilePopup-chat-userinfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  padding: 2px 4px;
+}
+.profilePopup-chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--pp-bg-soft);
+}
+.profilePopup-chat-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profilePopup-chat-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pp-text);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profilePopup-chat-status {
+  font-size: 12px;
+  color: var(--pp-text-dim);
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.profilePopup-chat-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2bd14d;
+  flex-shrink: 0;
 }
 
-.profilePopup-story-ring,
-.profilePopup-story-img {
-  pointer-events: auto; /* Ensure clicks register */
+/* Body */
+.profilePopup-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+.profilePopup-chat-body::-webkit-scrollbar { width: 4px; }
+.profilePopup-chat-body::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 2px;
 }
 
-.profilePopup-story {
-  scroll-snap-align: start;
+/* Bubbles */
+.pp-msg {
+  max-width: 78%;
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-family: var(--pp-font);
+  animation: ppMsgIn 0.18s ease;
+}
+@keyframes ppMsgIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.pp-msg-in {
+  align-self: flex-start;
+  background: var(--pp-grey-btn);
+  color: var(--pp-text);
+  border-bottom-left-radius: 4px;
+}
+.pp-msg-out {
+  align-self: flex-end;
+  background: var(--pp-blue);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.pp-msg-error {
+  align-self: flex-start;
+  background: transparent;
+  color: var(--pp-text-mute);
+  font-style: italic;
+  font-size: 12px;
+  padding: 2px 4px;
 }
 
-.profilePopup-stories:active {
-  cursor: grabbing;
+/* Typing indicator */
+.pp-msg-typing {
+  align-self: flex-start;
+  background: var(--pp-grey-btn);
+  padding: 12px 16px;
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.pp-msg-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pp-text-dim);
+  animation: ppTyping 1.4s infinite ease-in-out both;
+}
+.pp-msg-typing span:nth-child(2) { animation-delay: 0.18s; }
+.pp-msg-typing span:nth-child(3) { animation-delay: 0.36s; }
+@keyframes ppTyping {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
 }
 
-/* Custom scrollbar for desktop (optional) */
-.profilePopup-stories::-webkit-scrollbar {
-  height: 4px;
-  display: block;
+/* Input bar */
+.profilePopup-chat-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--pp-border-soft);
+  flex-shrink: 0;
+  background: var(--pp-bg);
+}
+.profilePopup-chat-input {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--pp-border);
+  color: var(--pp-text);
+  border-radius: 22px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-family: var(--pp-font);
+  outline: none;
+  transition: border-color 0.15s ease;
+  min-width: 0;
+}
+.profilePopup-chat-input:focus { border-color: var(--pp-text-dim); }
+.profilePopup-chat-input::placeholder { color: var(--pp-text-mute); }
+.profilePopup-chat-send {
+  background: transparent;
+  border: none;
+  color: var(--pp-blue);
+  cursor: pointer;
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.profilePopup-chat-send:hover:not(:disabled) { background: rgba(0,149,246,0.12); }
+.profilePopup-chat-send:active:not(:disabled) { transform: scale(0.92); }
+.profilePopup-chat-send:disabled {
+  color: var(--pp-text-mute);
+  cursor: default;
+  opacity: 0.55;
 }
 
-.profilePopup-stories::-webkit-scrollbar-track {
-  background: #222;
-  border-radius: 4px;
+/* Mobile chat full-screen integration */
+@media (max-width: 640px) {
+  .profilePopup-chat { border-radius: 0; }
 }
 
-.profilePopup-stories::-webkit-scrollbar-thumb {
-  background: #666;
-  border-radius: 4px;
-}
-
-.profilePopup-stories::-webkit-scrollbar-thumb:hover {
-  background: #888;
-}
-
-/* Add invisible padding areas between stories for better drag area */
-.profilePopup-story {
-  margin: 0 2px;
-}
-
-
-@media (min-width: 768px) {
-  .profilePopup-stories::-webkit-scrollbar-thumb {
-    transition: background 0.3s ease;
-  }
-  
-  .profilePopup-stories:hover::-webkit-scrollbar-thumb {
-    background: #666;
-  }
-}
-
-/* Optional: Add fade effect to indicate scrollable content */
-.profilePopup-stories {
-  position: relative;
-}
-
-.profilePopup-stories::after {
-  content: '';
-  position: sticky;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  background: linear-gradient(to right, transparent, rgba(0,0,0,0.3));
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Left side fade */
-.profilePopup-stories::before {
-  content: '';
-  position: sticky;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  background: linear-gradient(to left, transparent, rgba(0,0,0,0.3));
-  pointer-events: none;
-  z-index: 1;
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .profilePopup-modal,
+  .profilePopup-overlay,
+  .profilePopup-avatar-ring,
+  .profilePopup-story-ring,
+  .profilePopup-post img,
+  .profilePopup-post video,
+  .profilePopup-post::before,
+  .profilePopup-post .pp-likes,
+  .profilePopup-close,
+  .profilePopup-btn,
+  .profilePopup-tab,
+  .pp-sv-iconbtn,
+  .pp-sv-close,
+  .profilePopup-lb-download,
+  .profilePopup-lb-close,
+  .profilePopup-chat,
+  .profilePopup-iconbtn,
+  .profilePopup-chat-send,
+  .pp-msg,
+  .pp-msg-typing span { transition: none !important; animation: none !important; }
 }

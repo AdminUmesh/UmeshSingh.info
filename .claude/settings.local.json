@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /s \"P:\\\\Aimil WorkSpace\\\\Git Repo\\\\UmeshSingh.info\")",
+      "Bash(sed 's/[[:space:]]*//g')",
+      "Read(//tmp/**)",
+      "Bash(git -C \"p:/Aimil WorkSpace/Git Repo/UmeshSingh.info\" diff --stat)",
+      "Bash(node -c \"p:/Aimil WorkSpace/Git Repo/UmeshSingh.info/assets/js/profilePopup.js\")"
+    ]
+  }
+}

@@ -618,12 +618,6 @@ transform: translate(-50%,-50%);
 .port_navigation .nav_list li:nth-child(4) .tooltip_box span.menu_tooltip:after {
     border-right-color: #ff754a;
 }
-.active-menu{
-	bottom: 3px!important;
-    opacity: 1!important;
-    visibility: visible!important;
-}
-
 .siderbar_icon {
     position: relative;
     display: inline-block;
@@ -953,54 +947,6 @@ transform: scale(1)!important;
     transition: all 0.3s;
 }
 
-.brc_hirebtn .portfolio_btn.btn_orange {
-    background-color: rgb(255, 117, 74);
-    -webkit-box-shadow: 0px 8px 20px 0px rgba(255, 117, 74, 0.3);
-    -moz-box-shadow: 0px 8px 20px 0px rgba(255, 117, 74, 0.3);
-    -ms-box-shadow: 0px 8px 20px 0px rgba(255, 117, 74, 0.3);
-    -o-box-shadow: 0px 8px 20px 0px rgba(255, 117, 74, 0.3);
-    box-shadow: 0px 8px 20px 0px rgba(255, 117, 74, 0.3);
-    font-size: 16px;
-	color:#ffffff;
-}
-
-.brc_hirebtn .portfolio_btn.btn_orange:hover {
-    background: #00c8da;
-    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 200, 218, 0.3);
-    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 200, 218, 0.3);
-    -ms-box-shadow: 0px 8px 20px 0px rgba(0, 200, 218, 0.3);
-    -o-box-shadow: 0px 8px 20px 0px rgba(0, 200, 218, 0.3);
-    box-shadow: 0px 8px 20px 0px rgba(0, 200, 218, 0.3);
-	color:#fff;
-}
-.brc_hirebtn {
-    position: absolute;
-    bottom: 195px;
-    right: 120px;
-	-webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -ms-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
-    -webkit-transform: scale(0);
-    -moz-transform: scale(0) ;
-    -ms-transform: scale(0);
-    -o-transform: scale(0) ;
-    transform: scale(0);
-    z-index: 999;
-}
-.brc_hirebtn.mbrc_hirebtn {
-	-webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -ms-transition: all 1s;
-    -o-transition: all 1s;
-    transition: all 1s;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1) ;
-    -ms-transform: scale(1);
-    -o-transform: scale(1) ;
-    transform: scale(1);
-}
 /* start cursore mover */
 
 #cv_container{
@@ -3099,9 +3045,6 @@ p.banner_pera {
     height: 50px;
     line-height: 54px;
 }
-.banner_img .brc_hirebtn {
-    bottom: 0;
-}
 .blog_content .blog_shareinfo{
 	display:block;
 }
@@ -3322,9 +3265,6 @@ p.banner_pera {
 }
 .banner_btn .portfolio_btn.btn_yellow {
     margin-right: 5px;
-}
-.banner_img .brc_hirebtn {
-    right: 45px;
 }
 .port_togglebox {
     right: 20px;

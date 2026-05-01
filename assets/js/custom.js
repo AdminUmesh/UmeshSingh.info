@@ -27,7 +27,6 @@ Assigned to: ThemeForest
 			------------------------------------------------------------------------------------------------*/
 			this.open_menu();
 			this.custom_scrollbar();
-			this.rightbtn_onload();
 			this.rightside_onload();
 			this.bannerleft_onload();
 			this.banner_typingtext();
@@ -97,18 +96,6 @@ Assigned to: ThemeForest
 			});
 		}
 	},		
-	/*------------------------------------------------------------------*/ 
-	
-	// right side hire me btn
-	rightbtn_onload: function() {
-		if($('.brc_hirebtn').length > 0){	
-			$(window).on('load', function(){
-			setTimeout(function() {
-				$('.brc_hirebtn').addClass('mbrc_hirebtn');
-				}, 2500);
-			});
-		}
-	},
 	/*------------------------------------------------------------------*/ 
 	
 	// Typed JS
@@ -509,7 +496,6 @@ Assigned to: ThemeForest
 			}
 			$('.submitForm').on('click', function() {
 				var _this = $(this);
-				console.log(_this.attr('data-type'));
 				var targetForm = _this.closest('form');
 				var errroTarget = targetForm.find('.response');
 				var check = checkRequire(targetForm , errroTarget);
