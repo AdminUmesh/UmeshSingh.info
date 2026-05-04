@@ -832,6 +832,13 @@ function profilePopupMoreMenu() {
   );
 }
 
+/* ===== WHATSAPP CHAT ===== */
+function openWhatsApp() {
+  const phone = "919708306322";
+  const text = encodeURIComponent("Hello Umesh 👋");
+  window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+}
+
 /* ===== DOWNLOAD MEDIA FUNCTION ===== */
 function downloadCurrentMedia() {
   const mediaContainer = document.getElementById("lbMedia");

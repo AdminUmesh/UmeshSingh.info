@@ -234,6 +234,14 @@
 }
 .profilePopup-btn-icon:hover { background: var(--pp-grey-btn-h); }
 
+/* WhatsApp variant of the icon button */
+.profilePopup-btn-whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+.profilePopup-btn-whatsapp:hover { background: #1ebe57; }
+.profilePopup-btn-whatsapp svg { fill: #fff; }
+
 /* ===== BIO ===== */
 .profilePopup-bio {
   font-size: 14px;
@@ -727,6 +735,9 @@
     max-width: 100%;
     max-height: 100vh;
     height: 100vh;
+    /* dynamic viewport height for mobile browsers (handles URL bar) */
+    max-height: 100dvh;
+    height: 100dvh;
     border-radius: 0;
     border: none;
     transform: translateY(40px);
@@ -738,6 +749,45 @@
   .pp-sv-inner,
   .pp-sv-media-wrap { border-radius: 0; }
   .profilePopup-grid { gap: 1.5px; }
+  .profilePopup-btn-row { gap: 5px; }
+}
+
+/* ===== SMALL PHONES (≤ 380px) — tighten spacing & shrink controls ===== */
+@media (max-width: 380px) {
+  .profilePopup-body { padding: 46px 12px 12px; }
+  #profilePopup-id { font-size: 16px; padding: 5px 12px; }
+  .profilePopup-avatar-wrap { left: 12px; bottom: -34px; }
+  .profilePopup-avatar-ring { width: 72px; height: 72px; }
+  .profilePopup-name { font-size: 15px; }
+  .profilePopup-handle { font-size: 12px; }
+  .profilePopup-btn-row { gap: 4px; }
+  .profilePopup-btn {
+    font-size: 13px;
+    padding: 7px 0;
+  }
+  .profilePopup-btn-icon { flex: 0 0 36px; padding: 7px; }
+  .profilePopup-bio { font-size: 13px; }
+  .profilePopup-tabs { margin: 10px -12px 0; }
+  .profilePopup-tab { padding: 10px; }
+  .profilePopup-grid { margin: 1.5px -12px 0; }
+  .profilePopup-story { min-width: 58px; }
+  .profilePopup-story-ring { width: 58px; height: 58px; }
+  .profilePopup-story-name { max-width: 58px; font-size: 10.5px; }
+}
+
+/* ===== EXTRA SMALL (≤ 340px) — last-resort fit ===== */
+@media (max-width: 340px) {
+  .profilePopup-btn { font-size: 12px; }
+  .profilePopup-btn-icon { flex: 0 0 32px; padding: 6px; }
+  .profilePopup-btn-whatsapp svg { width: 16px; height: 16px; }
+}
+
+/* ===== SHORT SCREENS — reduce vertical bloat in landscape / small phones ===== */
+@media (max-height: 600px) and (max-width: 900px) {
+  .profilePopup-cover { height: 64px; }
+  .profilePopup-avatar-ring { width: 70px; height: 70px; }
+  .profilePopup-avatar-wrap { bottom: -32px; }
+  .profilePopup-body { padding: 42px 14px 14px; }
 }
 
 /* ===== CHAT (DM-style) ===== */
